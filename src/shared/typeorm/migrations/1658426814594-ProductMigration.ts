@@ -49,6 +49,6 @@ export class ProductMigration1658426814594 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("avaliation");
+    await queryRunner.dropTable("product");
   }
 }

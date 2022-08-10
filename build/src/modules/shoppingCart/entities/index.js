@@ -37,6 +37,6 @@ __decorate([
     __metadata("design:type", typeorm_1.Timestamp)
 ], ShoppingCartEntity.prototype, "updated_at", void 0);
 ShoppingCartEntity = __decorate([
-    (0, typeorm_1.Entity)("shoppingCart")
+    (0, typeorm_1.Entity)("shopping_cart")
 ], ShoppingCartEntity);
 exports.default = ShoppingCartEntity;

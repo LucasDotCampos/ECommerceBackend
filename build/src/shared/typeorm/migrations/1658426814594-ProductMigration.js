@@ -48,7 +48,7 @@ class ProductMigration1658426814594 {
         }));
     }
     async down(queryRunner) {
-        await queryRunner.dropTable("avaliation");
+        await queryRunner.dropTable("product");
     }
 }
 exports.ProductMigration1658426814594 = ProductMigration1658426814594;

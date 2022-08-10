@@ -5,7 +5,7 @@ const typeorm_1 = require("typeorm");
 class shoppingCart1659720883976 {
     async up(queryRunner) {
         await queryRunner.createTable(new typeorm_1.Table({
-            name: "shoppingCart",
+            name: "shopping_cart",
             columns: [
                 {
                     name: "id",

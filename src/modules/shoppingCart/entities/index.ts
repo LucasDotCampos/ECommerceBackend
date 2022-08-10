@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-@Entity("shoppingCart")
+@Entity("shopping_cart")
 class ShoppingCartEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;

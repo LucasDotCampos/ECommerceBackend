@@ -4,7 +4,7 @@ export class shoppingCart1659720883976 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "shoppingCart",
+        name: "shopping_cart",
         columns: [
           {
             name: "id",
