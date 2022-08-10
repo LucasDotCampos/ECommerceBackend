@@ -15,12 +15,12 @@ export const dataSource = new DataSource({
   username: `${process.env.DB_USERNAME}`,
   password: `${process.env.DB_PASSWORD}`,
   database: `${process.env.DATABASE}`,
-  // extra: {
-  //   ssl: {
-  //     require: true,
-  //     rejectUnauthorized: false,
-  //   },
-  // },
+  extra: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
   entities: [UserEntity, ProductEntity, ShoppingCartEntity],
   migrations: [
     UserMigration1658376013976,

@@ -19,12 +19,12 @@ exports.dataSource = new typeorm_1.DataSource({
     username: `${process.env.DB_USERNAME}`,
     password: `${process.env.DB_PASSWORD}`,
     database: `${process.env.DATABASE}`,
-    // extra: {
-    //   ssl: {
-    //     require: true,
-    //     rejectUnauthorized: false,
-    //   },
-    // },
+    extra: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false,
+        },
+    },
     entities: [adminEntity_1.default, entities_1.default, entities_2.default],
     migrations: [
         _1658376013976_UserMigration_1.UserMigration1658376013976,
