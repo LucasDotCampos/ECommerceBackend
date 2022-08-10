@@ -1,5 +1,5 @@
 import { dataSource } from "../../../shared/typeorm/connection";
-import UserEntity from "../entities/adminEntity";
+import UserEntity from "../entities/UserEntity";
 import { IUser, IUserId, IUserToken } from "../models";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";

@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import UserEntity from "../../modules/user/entities/adminEntity";
+import UserEntity from "../../modules/user/entities/UserEntity";
 import ProductEntity from "../../modules/product/entities";
 import { UserMigration1658376013976 } from "./migrations/1658376013976-UserMigration";
 import { ProductMigration1658426814594 } from "./migrations/1658426814594-ProductMigration";

@@ -4,13 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = require("../../../shared/typeorm/connection");
-const adminEntity_1 = __importDefault(require("../entities/adminEntity"));
+const UserEntity_1 = __importDefault(require("../entities/UserEntity"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 class UserService {
     async create({ name, password }) {
         const userExists = await connection_1.dataSource.manager
-            .getRepository(adminEntity_1.default)
+            .getRepository(UserEntity_1.default)
             .findOne({
             where: {
                 name,
@@ -20,7 +20,7 @@ class UserService {
             throw new Error("User already exists");
         }
         const encryptedPassword = await bcrypt_1.default.hash(password, 10);
-        const createUser = connection_1.dataSource.manager.create(adminEntity_1.default, {
+        const createUser = connection_1.dataSource.manager.create(UserEntity_1.default, {
             name,
             password: encryptedPassword,
         });
@@ -28,7 +28,7 @@ class UserService {
         return createUser;
     }
     async authenticate({ name, password }) {
-        const admin = await connection_1.dataSource.manager.getRepository(adminEntity_1.default).findOne({
+        const admin = await connection_1.dataSource.manager.getRepository(UserEntity_1.default).findOne({
             where: {
                 name,
             },
@@ -48,7 +48,7 @@ class UserService {
         };
     }
     async delete({ id }) {
-        const userReposity = connection_1.dataSource.manager.getRepository(adminEntity_1.default);
+        const userReposity = connection_1.dataSource.manager.getRepository(UserEntity_1.default);
         const user = userReposity.findOne({
             where: {
                 id,
@@ -60,7 +60,7 @@ class UserService {
         await userReposity.delete(id);
     }
     async getAllUsers() {
-        const userReposity = connection_1.dataSource.manager.getRepository(adminEntity_1.default);
+        const userReposity = connection_1.dataSource.manager.getRepository(UserEntity_1.default);
         const users = userReposity.find();
         return users;
     }
