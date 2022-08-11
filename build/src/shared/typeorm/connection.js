@@ -4,13 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dataSource = void 0;
+require("dotenv/config");
 const typeorm_1 = require("typeorm");
 const UserEntity_1 = __importDefault(require("../../modules/user/entities/UserEntity"));
 const entities_1 = __importDefault(require("../../modules/product/entities"));
+const entities_2 = __importDefault(require("../../modules/shoppingCart/entities"));
 const _1658376013976_UserMigration_1 = require("./migrations/1658376013976-UserMigration");
 const _1658426814594_ProductMigration_1 = require("./migrations/1658426814594-ProductMigration");
-require("dotenv/config");
-const entities_2 = __importDefault(require("../../modules/shoppingCart/entities"));
 const _1659720883976_shoppingCart_1 = require("./migrations/1659720883976-shoppingCart");
 exports.dataSource = new typeorm_1.DataSource({
     type: "postgres",
