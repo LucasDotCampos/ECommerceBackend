@@ -46,6 +46,25 @@ class ProductController {
       return response.status(400).json(err.message);
     }
   }
+
+  public async getById(
+    request: Request,
+    response: Response
+  ): Promise<Response> {
+    try {
+      const { id } = request.params;
+
+      if (!id || id === "") {
+        return response.status(422);
+      } else {
+        const productService = new ProductService();
+        const product = await productService.getById({ id });
+        return response.status(200).json(product);
+      }
+    } catch (err: any) {
+      return response.status(400).json(err.message);
+    }
+  }
 }
 
 export default ProductController;

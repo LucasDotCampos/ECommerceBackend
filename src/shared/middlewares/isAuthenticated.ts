@@ -11,7 +11,7 @@ export default function isAuthenticated(
     const authHeader = request.headers.authorization;
 
     if (!authHeader) {
-      throw new Error("Invalid token.");
+      throw new Error("Token not found");
     }
 
     const [, token] = authHeader.split(" ");
@@ -20,7 +20,7 @@ export default function isAuthenticated(
     const decodedToken = verify(token, `${secret}`);
 
     if (!decodedToken) {
-      throw new Error("Token inválido");
+      throw new Error("Invalid token.");
     }
 
     const { id } = decodedToken as ITokenPayload;

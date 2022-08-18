@@ -9,7 +9,7 @@ class ProductService {
     description,
     price,
     image,
-  }: IProduct): Promise<ProductEntity> {
+  }: Partial<IProduct>): Promise<ProductEntity> {
     const productRepository = dataSource.manager.getRepository(ProductEntity);
 
     const createProduct = productRepository.create({
@@ -30,6 +30,18 @@ class ProductService {
     const search = avaliationRepository.find();
 
     return search;
+  }
+
+  public async getById({ id }: Partial<IProduct>): Promise<ProductEntity> {
+    const productRepository = dataSource.manager.getRepository(ProductEntity);
+
+    const product = await productRepository.findOne({
+      where: {
+        id,
+      },
+    });
+
+    return product;
   }
 }
 export default ProductService;
