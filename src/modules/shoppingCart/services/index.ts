@@ -54,8 +54,6 @@ class ShoppingCartService {
       const query = await dataSource.manager.query(
         `SELECT *  FROM shopping_cart, product  WHERE shopping_cart.user_id  = '${user_id}' AND product.id = '${item.product_id}'`
       );
-
-      console.log(query);
     });
 
     return shoppingCart;
