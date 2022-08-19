@@ -38,7 +38,7 @@ class ShoppingCartService {
             },
         });
         shoppingCart.map(async (item) => {
-            const query = await connection_1.dataSource.manager.query(`SELECT *  FROM shopping_cart, product  WHERE shopping_cart.user_id  = '${user_id}' AND product.id = '${item.product_id}'`);
+            await connection_1.dataSource.manager.query(`SELECT *  FROM shopping_cart, product  WHERE shopping_cart.user_id  = '${user_id}' AND product.id = '${item.product_id}'`);
         });
         return shoppingCart;
     }
