@@ -30,11 +30,16 @@ class ShoppingCartService {
         }
     }
     async getAll({ user_id, }) {
+        let content = null;
         const shoppingCartRepository = connection_1.dataSource.manager.getRepository(entities_1.default);
         const shoppingCart = await shoppingCartRepository.find({
             where: {
                 user_id,
             },
+        });
+        shoppingCart.map(async (item) => {
+            const query = await connection_1.dataSource.manager.query(`SELECT *  FROM shopping_cart, product  WHERE shopping_cart.user_id  = '${user_id}' AND product.id = '${item.product_id}'`);
+            console.log(query);
         });
         return shoppingCart;
     }

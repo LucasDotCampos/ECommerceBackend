@@ -40,6 +40,7 @@ class ShoppingCartService {
   public async getAll({
     user_id,
   }: Partial<IShoppingCart>): Promise<ShoppingCartEntity[]> {
+    let content = null;
     const shoppingCartRepository =
       dataSource.manager.getRepository(ShoppingCartEntity);
 
@@ -48,6 +49,15 @@ class ShoppingCartService {
         user_id,
       },
     });
+
+    shoppingCart.map(async (item) => {
+      const query = await dataSource.manager.query(
+        `SELECT *  FROM shopping_cart, product  WHERE shopping_cart.user_id  = '${user_id}' AND product.id = '${item.product_id}'`
+      );
+
+      console.log(query);
+    });
+
     return shoppingCart;
   }
 
