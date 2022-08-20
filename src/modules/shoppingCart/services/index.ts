@@ -50,13 +50,17 @@ class ShoppingCartService {
       },
     });
 
-    shoppingCart.map(async (item) => {
-      await dataSource.manager.query(
-        `SELECT *  FROM shopping_cart, product  WHERE shopping_cart.user_id  = '${user_id}' AND product.id = '${item.product_id}'`
-      );
-    });
+    const productSearch = await dataSource.manager.query(
+      `SELECT *  FROM shopping_cart as s
+        JOIN product as p
+        ON s.product_id = p.id
+        where s.user_id = '${user_id}'
+        ORDER BY p.name ASC
+          `
+    );
+    console.log(productSearch);
 
-    return shoppingCart;
+    return productSearch;
   }
 
   public async deleteOne({
