@@ -30,20 +30,12 @@ class ShoppingCartService {
         }
     }
     async getAll({ user_id, }) {
-        let content = null;
-        const shoppingCartRepository = connection_1.dataSource.manager.getRepository(entities_1.default);
-        const shoppingCart = await shoppingCartRepository.find({
-            where: {
-                user_id,
-            },
-        });
         const productSearch = await connection_1.dataSource.manager.query(`SELECT *  FROM shopping_cart as s
         JOIN product as p
         ON s.product_id = p.id
         where s.user_id = '${user_id}'
         ORDER BY p.name ASC
           `);
-        console.log(productSearch);
         return productSearch;
     }
     async deleteOne({ user_id, product_id, }) {

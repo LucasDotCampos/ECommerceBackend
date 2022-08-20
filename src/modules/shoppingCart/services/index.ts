@@ -40,16 +40,6 @@ class ShoppingCartService {
   public async getAll({
     user_id,
   }: Partial<IShoppingCart>): Promise<ShoppingCartEntity[]> {
-    let content = null;
-    const shoppingCartRepository =
-      dataSource.manager.getRepository(ShoppingCartEntity);
-
-    const shoppingCart = await shoppingCartRepository.find({
-      where: {
-        user_id,
-      },
-    });
-
     const productSearch = await dataSource.manager.query(
       `SELECT *  FROM shopping_cart as s
         JOIN product as p
@@ -58,7 +48,6 @@ class ShoppingCartService {
         ORDER BY p.name ASC
           `
     );
-    console.log(productSearch);
 
     return productSearch;
   }
