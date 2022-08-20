@@ -31,7 +31,7 @@ class ShoppingCartController {
 
   public async getAll(request: Request, response: Response): Promise<Response> {
     try {
-      const { user_id } = request.body;
+      const { user_id } = request.params;
       const shoppingCartService = new ShoppingCartService();
 
       const shoppingCart = await shoppingCartService.getAll({ user_id });
