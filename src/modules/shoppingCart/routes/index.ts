@@ -11,7 +11,11 @@ shoppingCartRouter.post(
   isAuthenticated,
   shoppingCartController.create
 );
-shoppingCartRouter.get("/", isAuthenticated, shoppingCartController.getAll);
+shoppingCartRouter.get(
+  "/:user_id",
+  isAuthenticated,
+  shoppingCartController.getAll
+);
 shoppingCartRouter.delete(
   "/deleteone",
   isAuthenticated,
