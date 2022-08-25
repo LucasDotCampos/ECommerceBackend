@@ -44,7 +44,7 @@ class ShoppingCartController {
     }
     async deleteOne(request, response) {
         try {
-            const { user_id, product_id } = request.body;
+            const { user_id, product_id } = request.params;
             const shoppingCartService = new services_1.default();
             const shoppingCart = await shoppingCartService.deleteOne({
                 user_id,
@@ -58,11 +58,10 @@ class ShoppingCartController {
     }
     async deleteAll(request, response) {
         try {
-            const { user_id, product_id } = request.body;
+            const { user_id } = request.params;
             const shoppingCartService = new services_1.default();
             const shoppingCart = await shoppingCartService.deleteAll({
                 user_id,
-                product_id,
             });
             return response.status(200).json(shoppingCart);
         }

@@ -46,7 +46,7 @@ class ShoppingCartController {
     response: Response
   ): Promise<Response> {
     try {
-      const { user_id, product_id } = request.body;
+      const { user_id, product_id } = request.params;
 
       const shoppingCartService = new ShoppingCartService();
 
@@ -66,12 +66,11 @@ class ShoppingCartController {
     response: Response
   ): Promise<Response> {
     try {
-      const { user_id, product_id } = request.body;
+      const { user_id } = request.params;
       const shoppingCartService = new ShoppingCartService();
 
       const shoppingCart = await shoppingCartService.deleteAll({
         user_id,
-        product_id,
       });
       return response.status(200).json(shoppingCart);
     } catch (err: any) {

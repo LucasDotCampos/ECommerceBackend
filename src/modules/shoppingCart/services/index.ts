@@ -55,7 +55,7 @@ class ShoppingCartService {
   public async deleteOne({
     user_id,
     product_id,
-  }: IShoppingCart): Promise<ShoppingCartEntity> {
+  }: Partial<IShoppingCart>): Promise<ShoppingCartEntity> {
     const shoppingCartRepository =
       dataSource.manager.getRepository(ShoppingCartEntity);
 
@@ -82,28 +82,22 @@ class ShoppingCartService {
     }
   }
 
-  public async deleteAll({
-    user_id,
-    product_id,
-  }: IShoppingCart): Promise<void> {
+  public async deleteAll({ user_id }: Partial<IShoppingCart>): Promise<void> {
     const shoppingCartRepository =
       dataSource.manager.getRepository(ShoppingCartEntity);
 
-    const shoppingCartProductAlreadyExists =
-      await shoppingCartRepository.findOne({
-        where: {
-          user_id,
-          product_id,
-        },
-      });
+    const shoppingCartProductAlreadyExists = await shoppingCartRepository.find({
+      where: {
+        user_id,
+      },
+    });
 
     if (shoppingCartProductAlreadyExists) {
       await dataSource.manager.delete(ShoppingCartEntity, {
         user_id,
-        product_id,
       });
     } else {
-      throw new Error("Produto não encontrado");
+      throw new Error("Product not found.");
     }
   }
 }

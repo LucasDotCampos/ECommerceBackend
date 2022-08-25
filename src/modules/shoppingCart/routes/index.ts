@@ -17,12 +17,12 @@ shoppingCartRouter.get(
   shoppingCartController.getAll
 );
 shoppingCartRouter.delete(
-  "/deleteone",
+  "/deleteone/:user_id/:product_id",
   isAuthenticated,
   shoppingCartController.deleteOne
 );
 shoppingCartRouter.delete(
-  "/deleteall",
+  "/deleteall/:user_id",
   isAuthenticated,
   shoppingCartController.deleteAll
 );

@@ -10,6 +10,6 @@ const shoppingCartRouter = (0, express_1.Router)();
 const shoppingCartController = new controllers_1.default();
 shoppingCartRouter.post("/register", isAuthenticated_1.default, shoppingCartController.create);
 shoppingCartRouter.get("/:user_id", isAuthenticated_1.default, shoppingCartController.getAll);
-shoppingCartRouter.delete("/deleteone", isAuthenticated_1.default, shoppingCartController.deleteOne);
-shoppingCartRouter.delete("/deleteall", isAuthenticated_1.default, shoppingCartController.deleteAll);
+shoppingCartRouter.delete("/deleteone/:user_id/:product_id", isAuthenticated_1.default, shoppingCartController.deleteOne);
+shoppingCartRouter.delete("/deleteall/:user_id", isAuthenticated_1.default, shoppingCartController.deleteAll);
 exports.default = shoppingCartRouter;

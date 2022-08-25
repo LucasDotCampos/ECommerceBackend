@@ -59,22 +59,20 @@ class ShoppingCartService {
             });
         }
     }
-    async deleteAll({ user_id, product_id, }) {
+    async deleteAll({ user_id }) {
         const shoppingCartRepository = connection_1.dataSource.manager.getRepository(entities_1.default);
-        const shoppingCartProductAlreadyExists = await shoppingCartRepository.findOne({
+        const shoppingCartProductAlreadyExists = await shoppingCartRepository.find({
             where: {
                 user_id,
-                product_id,
             },
         });
         if (shoppingCartProductAlreadyExists) {
             await connection_1.dataSource.manager.delete(entities_1.default, {
                 user_id,
-                product_id,
             });
         }
         else {
-            throw new Error("Produto não encontrado");
+            throw new Error("Product not found.");
         }
     }
 }
