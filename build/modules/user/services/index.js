@@ -8,12 +8,12 @@ const UserEntity_1 = __importDefault(require("../entities/UserEntity"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 class UserService {
-    async create({ name, password }) {
+    async create({ email, password }) {
         const userExists = await connection_1.dataSource.manager
             .getRepository(UserEntity_1.default)
             .findOne({
             where: {
-                name,
+                email,
             },
         });
         if (userExists) {
@@ -21,16 +21,16 @@ class UserService {
         }
         const encryptedPassword = await bcrypt_1.default.hash(password, 10);
         const createUser = connection_1.dataSource.manager.create(UserEntity_1.default, {
-            name,
+            email,
             password: encryptedPassword,
         });
         connection_1.dataSource.manager.save(createUser);
         return createUser;
     }
-    async authenticate({ name, password }) {
+    async authenticate({ email, password }) {
         const admin = await connection_1.dataSource.manager.getRepository(UserEntity_1.default).findOne({
             where: {
-                name,
+                email,
             },
         });
         if (!admin) {

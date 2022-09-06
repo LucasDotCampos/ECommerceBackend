@@ -4,11 +4,11 @@ import UserService from "../services";
 class UserController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
-      const { name, password } = request.body;
+      const { email, password } = request.body;
       const userService = new UserService();
 
-      const admin = await userService.create({ name, password });
-      return response.status(200).json(admin);
+      const user = await userService.create({ email, password });
+      return response.status(200).json(user);
     } catch (err) {
       return response.status(400).json(err.message);
     }
@@ -16,10 +16,10 @@ class UserController {
 
   public async authenticate(request: Request, response: Response) {
     try {
-      const { name, password } = request.body;
+      const { email, password } = request.body;
 
       const userService = new UserService();
-      const user = await userService.authenticate({ name, password });
+      const user = await userService.authenticate({ email, password });
       return response.status(200).json(user);
     } catch (err) {
       return response.status(400).json(err.message);

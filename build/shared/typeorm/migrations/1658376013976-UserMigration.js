@@ -15,7 +15,7 @@ class UserMigration1658376013976 {
                     default: "uuid_generate_v4()",
                 },
                 {
-                    name: "name",
+                    name: "email",
                     type: "varchar",
                 },
                 {

@@ -26,7 +26,7 @@ class ProductMigration1658426814594 {
                 },
                 {
                     name: "price",
-                    type: "varchar",
+                    type: "int",
                     isNullable: false,
                 },
                 {

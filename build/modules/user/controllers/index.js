@@ -7,10 +7,10 @@ const services_1 = __importDefault(require("../services"));
 class UserController {
     async create(request, response) {
         try {
-            const { name, password } = request.body;
+            const { email, password } = request.body;
             const userService = new services_1.default();
-            const admin = await userService.create({ name, password });
-            return response.status(200).json(admin);
+            const user = await userService.create({ email, password });
+            return response.status(200).json(user);
         }
         catch (err) {
             return response.status(400).json(err.message);
@@ -18,9 +18,9 @@ class UserController {
     }
     async authenticate(request, response) {
         try {
-            const { name, password } = request.body;
+            const { email, password } = request.body;
             const userService = new services_1.default();
-            const user = await userService.authenticate({ name, password });
+            const user = await userService.authenticate({ email, password });
             return response.status(200).json(user);
         }
         catch (err) {

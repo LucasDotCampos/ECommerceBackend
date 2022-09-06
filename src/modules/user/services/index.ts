@@ -5,12 +5,12 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 class UserService {
-  public async create({ name, password }: IUser): Promise<UserEntity> {
+  public async create({ email, password }: IUser): Promise<UserEntity> {
     const userExists = await dataSource.manager
       .getRepository(UserEntity)
       .findOne({
         where: {
-          name,
+          email,
         },
       });
     if (userExists) {
@@ -19,7 +19,7 @@ class UserService {
 
     const encryptedPassword = await bcrypt.hash(password, 10);
     const createUser = dataSource.manager.create(UserEntity, {
-      name,
+      email,
       password: encryptedPassword,
     });
     dataSource.manager.save(createUser);
@@ -27,10 +27,10 @@ class UserService {
     return createUser;
   }
 
-  public async authenticate({ name, password }: IUser): Promise<IUserToken> {
+  public async authenticate({ email, password }: IUser): Promise<IUserToken> {
     const admin = await dataSource.manager.getRepository(UserEntity).findOne({
       where: {
-        name,
+        email,
       },
     });
 

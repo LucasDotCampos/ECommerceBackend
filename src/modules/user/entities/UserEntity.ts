@@ -13,7 +13,7 @@ class UserEntity {
   id: string;
 
   @Column({ unique: true })
-  name: string;
+  email: string;
 
   @Column()
   password: string;
