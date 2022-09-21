@@ -7,7 +7,7 @@ const services_1 = __importDefault(require("../services"));
 class ShoppingCartController {
     async create(request, response) {
         try {
-            const { user_id, product_id } = request.body;
+            const { user_id, product_id } = request.params;
             const shoppingCartService = new services_1.default();
             if (request.body.quantity === undefined) {
                 const quantity = 1;

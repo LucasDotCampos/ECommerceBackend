@@ -4,7 +4,7 @@ import ShoppingCartService from "../services";
 class ShoppingCartController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
-      const { user_id, product_id } = request.body;
+      const { user_id, product_id } = request.params;
 
       const shoppingCartService = new ShoppingCartService();
 
