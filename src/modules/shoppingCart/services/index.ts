@@ -52,10 +52,11 @@ class ShoppingCartService {
     return productSearch;
   }
 
-  public async deleteOne({
+  public async delete({
     user_id,
     product_id,
-  }: Partial<IShoppingCart>): Promise<ShoppingCartEntity> {
+    quantity,
+  }: IShoppingCart): Promise<ShoppingCartEntity> {
     const shoppingCartRepository =
       dataSource.manager.getRepository(ShoppingCartEntity);
 
@@ -67,37 +68,17 @@ class ShoppingCartService {
         },
       });
 
-    if (
-      shoppingCartProductAlreadyExists &&
-      shoppingCartProductAlreadyExists.quantity > 1
-    ) {
-      shoppingCartProductAlreadyExists.quantity -= 1;
-      await dataSource.manager.save(shoppingCartProductAlreadyExists);
-      return shoppingCartProductAlreadyExists;
-    } else {
+    if (!shoppingCartProductAlreadyExists) {
+      throw new Error("No products found in this shopping cart.");
+    } else if (quantity === 0) {
       await dataSource.manager.delete(ShoppingCartEntity, {
         user_id,
         product_id,
       });
-    }
-  }
-
-  public async deleteAll({ user_id }: Partial<IShoppingCart>): Promise<void> {
-    const shoppingCartRepository =
-      dataSource.manager.getRepository(ShoppingCartEntity);
-
-    const shoppingCartProductAlreadyExists = await shoppingCartRepository.find({
-      where: {
-        user_id,
-      },
-    });
-
-    if (shoppingCartProductAlreadyExists) {
-      await dataSource.manager.delete(ShoppingCartEntity, {
-        user_id,
-      });
-    } else {
-      throw new Error("Product not found.");
+    } else if (quantity > 1) {
+      shoppingCartProductAlreadyExists.quantity = quantity;
+      await dataSource.manager.save(shoppingCartProductAlreadyExists);
+      return shoppingCartProductAlreadyExists;
     }
   }
 }

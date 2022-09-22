@@ -7,7 +7,7 @@ const shoppingCartRouter = Router();
 const shoppingCartController = new ShoppingCartController();
 
 shoppingCartRouter.post(
-  "/register",
+  "/register/:user_id/:product_id",
   isAuthenticated,
   shoppingCartController.create
 );
@@ -17,14 +17,9 @@ shoppingCartRouter.get(
   shoppingCartController.getAll
 );
 shoppingCartRouter.delete(
-  "/deleteone/:user_id/:product_id",
+  "/delete/:user_id/:product_id",
   isAuthenticated,
-  shoppingCartController.deleteOne
-);
-shoppingCartRouter.delete(
-  "/deleteall/:user_id",
-  isAuthenticated,
-  shoppingCartController.deleteAll
+  shoppingCartController.delete
 );
 
 export default shoppingCartRouter;

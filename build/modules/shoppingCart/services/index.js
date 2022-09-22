@@ -38,7 +38,7 @@ class ShoppingCartService {
           `);
         return productSearch;
     }
-    async deleteOne({ user_id, product_id, }) {
+    async delete({ user_id, product_id, quantity, }) {
         const shoppingCartRepository = connection_1.dataSource.manager.getRepository(entities_1.default);
         const shoppingCartProductAlreadyExists = await shoppingCartRepository.findOne({
             where: {
@@ -46,33 +46,19 @@ class ShoppingCartService {
                 product_id,
             },
         });
-        if (shoppingCartProductAlreadyExists &&
-            shoppingCartProductAlreadyExists.quantity > 1) {
-            shoppingCartProductAlreadyExists.quantity -= 1;
-            await connection_1.dataSource.manager.save(shoppingCartProductAlreadyExists);
-            return shoppingCartProductAlreadyExists;
+        if (!shoppingCartProductAlreadyExists) {
+            throw new Error("No products found in this shopping cart.");
         }
-        else {
+        else if (quantity === 0) {
             await connection_1.dataSource.manager.delete(entities_1.default, {
                 user_id,
                 product_id,
             });
         }
-    }
-    async deleteAll({ user_id }) {
-        const shoppingCartRepository = connection_1.dataSource.manager.getRepository(entities_1.default);
-        const shoppingCartProductAlreadyExists = await shoppingCartRepository.find({
-            where: {
-                user_id,
-            },
-        });
-        if (shoppingCartProductAlreadyExists) {
-            await connection_1.dataSource.manager.delete(entities_1.default, {
-                user_id,
-            });
-        }
-        else {
-            throw new Error("Product not found.");
+        else if (quantity > 1) {
+            shoppingCartProductAlreadyExists.quantity = quantity;
+            await connection_1.dataSource.manager.save(shoppingCartProductAlreadyExists);
+            return shoppingCartProductAlreadyExists;
         }
     }
 }

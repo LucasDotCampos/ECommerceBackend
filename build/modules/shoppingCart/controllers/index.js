@@ -42,26 +42,15 @@ class ShoppingCartController {
             return response.status(400).json(err.message);
         }
     }
-    async deleteOne(request, response) {
+    async delete(request, response) {
         try {
             const { user_id, product_id } = request.params;
+            const { quantity } = request.body;
             const shoppingCartService = new services_1.default();
-            const shoppingCart = await shoppingCartService.deleteOne({
+            const shoppingCart = await shoppingCartService.delete({
                 user_id,
                 product_id,
-            });
-            return response.status(200).json(shoppingCart);
-        }
-        catch (err) {
-            return response.status(400).json(err.message);
-        }
-    }
-    async deleteAll(request, response) {
-        try {
-            const { user_id } = request.params;
-            const shoppingCartService = new services_1.default();
-            const shoppingCart = await shoppingCartService.deleteAll({
-                user_id,
+                quantity,
             });
             return response.status(200).json(shoppingCart);
         }
